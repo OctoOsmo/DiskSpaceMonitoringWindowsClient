@@ -12,12 +12,11 @@ namespace DiskSpaceMonitoring
     class DisksRestClient
     {
 
-        public static Dictionary<String, DiskInfo> getDiskList()
-        {
-            String server_url = Properties.Settings.Default.server_url;
+        public static Dictionary<String, DiskInfo> getDiskList(String server_url)
+        {             
             StringDictionary dk = Properties.Settings.Default.disks;
             var client = new RestClient(server_url);
-            client.Timeout = 100;
+            //client.Timeout = 1000;            
             var oneDiskRrequest = new RestRequest("/diskInfoRESTAPI/disk/_media_Video", Method.GET);
             var allDisksRequest = new RestRequest("/diskInfoRESTAPI/disk_list", Method.GET);
             // execute the request
