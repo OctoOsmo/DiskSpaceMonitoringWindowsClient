@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace DiskSpaceMonitoring
 {
@@ -14,12 +15,33 @@ namespace DiskSpaceMonitoring
     {
         private Timer chartTimer;
         private Boolean connected = true;
+        List<DiskChart> charts = new List<DiskChart>();
+
 
         public FormDisks()
         {
             InitializeComponent();
             InitTimer();
+            charts.Add(createChart("_", "Root"));
+            charts.Add(createChart("_media_Downloads", "DL"));
+            charts.Add(createChart("_media_Video", "Video"));
+            foreach (DiskChart diskChart in charts){
+                tabPageDisks.Controls.Add(diskChart.chart);
+            }
             drawCharts();
+            tabPageDisks.Width = 1200;
+            if(charts.ElementAt(0) != null)
+            {
+                int w = charts.ElementAt(0).chart.Width;
+                int ml = charts.ElementAt(0).chart.Margin.Left;
+                int mr = charts.ElementAt(0).chart.Margin.Right;
+                int mt = charts.ElementAt(0).chart.Margin.Top;
+                int mb = charts.ElementAt(0).chart.Margin.Bottom;
+                int h = charts.ElementAt(0).chart.Height;
+                this.Width = (w + ml + mr) * charts.Count + 20;
+                this.Height = h + 20;
+
+            }
             textBoxServerUrl.Text = Properties.Settings.Default.server_url;
         }
 
@@ -27,10 +49,37 @@ namespace DiskSpaceMonitoring
         {
             if (connected)
             {
-                drawDiskChart(chartVideo, "_media_Video", "Video");
-                drawDiskChart(chartDownloads, "_media_Downloads", "DL");
-                drawDiskChart(chartRoot, "_", "Root");
+                foreach (DiskChart diskChart in charts)
+                {                    
+                    drawDiskChart(diskChart.chart, diskChart.mountPoint, diskChart.name);
+                }
             }
+        }
+
+        private DiskChart createChart(String diskName, String label)
+        {
+            Chart c = new Chart();
+            ChartArea ca = new ChartArea();
+            c.BackColor = Color.Transparent;
+            ca.BackColor = Color.FromArgb(100, 240, 240, 240);
+            c.ChartAreas.Add(ca);
+            c.Width = 400;
+            c.Height = 400;
+            Font f = new Font(FontFamily.GenericSansSerif, 12);
+            Title t = new Title("Title1");
+            t.Font = f;
+            t.Docking = Docking.Top;
+            //t.IsDockedInsideChartArea = false;
+            t.DockingOffset = 42;
+            t.DockedToChartArea = ca.Name;
+            c.Titles.Add(t);
+            c.Series.Add("SeriesUsed");
+            c.Series["SeriesUsed"].ChartType = SeriesChartType.Doughnut;
+            c.Series["SeriesUsed"].Font = f;
+            c.Dock = DockStyle.Left;
+            DiskChart diskChart = new DiskChart(c, label, diskName);
+            //drawDiskChart(c, diskName, label);
+            return diskChart;
         }
 
         public void InitTimer()
@@ -161,6 +210,15 @@ namespace DiskSpaceMonitoring
         {
             this.Show();
             tabControlDisks.SelectedTab = tabControlDisks.TabPages["tabPageSettings"];
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {            
+        }
+
+        private void tabControlDisks_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

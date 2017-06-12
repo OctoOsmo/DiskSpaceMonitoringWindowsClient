@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DiskChart.cs" />
     <Compile Include="DiskInfo.cs" />
     <Compile Include="FormDisks.cs">
       <SubType>Form</SubType>
