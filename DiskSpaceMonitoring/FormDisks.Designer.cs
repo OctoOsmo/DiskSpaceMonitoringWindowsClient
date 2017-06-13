@@ -77,15 +77,18 @@
             // 
             // checkedListBoxDisks
             // 
+            this.checkedListBoxDisks.CheckOnClick = true;
             this.checkedListBoxDisks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkedListBoxDisks.FormattingEnabled = true;
             this.checkedListBoxDisks.Location = new System.Drawing.Point(3, 58);
             this.checkedListBoxDisks.Name = "checkedListBoxDisks";
             this.checkedListBoxDisks.Size = new System.Drawing.Size(780, 388);
             this.checkedListBoxDisks.TabIndex = 0;
+            this.checkedListBoxDisks.ThreeDCheckBoxes = true;
             // 
             // tabPageDisks
             // 
+            this.tabPageDisks.AutoScroll = true;
             this.tabPageDisks.BackColor = System.Drawing.SystemColors.Menu;
             this.tabPageDisks.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabPageDisks.Location = new System.Drawing.Point(4, 25);
@@ -201,6 +204,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(794, 478);
             this.Controls.Add(this.tabControlDisks);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
