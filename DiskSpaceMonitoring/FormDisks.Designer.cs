@@ -31,8 +31,12 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDisks));
             this.tabPageSettings = new System.Windows.Forms.TabPage();
-            this.buttonTestConnection = new System.Windows.Forms.Button();
             this.checkedListBoxDisks = new System.Windows.Forms.CheckedListBox();
+            this.textBoxServerUrl = new System.Windows.Forms.TextBox();
+            this.panelSettings = new System.Windows.Forms.Panel();
+            this.buttonSaveSettings = new System.Windows.Forms.Button();
+            this.labelUrl = new System.Windows.Forms.Label();
+            this.buttonTestConnection = new System.Windows.Forms.Button();
             this.tabPageDisks = new System.Windows.Forms.TabPage();
             this.tabControlDisks = new System.Windows.Forms.TabControl();
             this.notifyIconDisks = new System.Windows.Forms.NotifyIcon(this.components);
@@ -41,14 +45,10 @@
             this.hideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelSettings = new System.Windows.Forms.Panel();
-            this.textBoxServerUrl = new System.Windows.Forms.TextBox();
-            this.labelUrl = new System.Windows.Forms.Label();
-            this.buttonSaveSettings = new System.Windows.Forms.Button();
             this.tabPageSettings.SuspendLayout();
+            this.panelSettings.SuspendLayout();
             this.tabControlDisks.SuspendLayout();
             this.contextMenuStripDisks.SuspendLayout();
-            this.panelSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPageSettings
@@ -63,17 +63,6 @@
             this.tabPageSettings.TabIndex = 1;
             this.tabPageSettings.Text = "Settings";
             this.tabPageSettings.UseVisualStyleBackColor = true;
-            this.tabPageSettings.Move += new System.EventHandler(this.tabPageSettings_Move);
-            // 
-            // buttonTestConnection
-            // 
-            this.buttonTestConnection.Location = new System.Drawing.Point(88, 5);
-            this.buttonTestConnection.Name = "buttonTestConnection";
-            this.buttonTestConnection.Size = new System.Drawing.Size(112, 25);
-            this.buttonTestConnection.TabIndex = 8;
-            this.buttonTestConnection.Text = "Test connection";
-            this.buttonTestConnection.UseVisualStyleBackColor = true;
-            this.buttonTestConnection.Click += new System.EventHandler(this.buttonTestConnection_Click_1);
             // 
             // checkedListBoxDisks
             // 
@@ -85,6 +74,54 @@
             this.checkedListBoxDisks.Size = new System.Drawing.Size(780, 388);
             this.checkedListBoxDisks.TabIndex = 0;
             this.checkedListBoxDisks.ThreeDCheckBoxes = true;
+            // 
+            // textBoxServerUrl
+            // 
+            this.textBoxServerUrl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.textBoxServerUrl.Location = new System.Drawing.Point(3, 36);
+            this.textBoxServerUrl.Name = "textBoxServerUrl";
+            this.textBoxServerUrl.Size = new System.Drawing.Size(780, 22);
+            this.textBoxServerUrl.TabIndex = 10;
+            // 
+            // panelSettings
+            // 
+            this.panelSettings.Controls.Add(this.buttonSaveSettings);
+            this.panelSettings.Controls.Add(this.labelUrl);
+            this.panelSettings.Controls.Add(this.buttonTestConnection);
+            this.panelSettings.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelSettings.Location = new System.Drawing.Point(3, 3);
+            this.panelSettings.Name = "panelSettings";
+            this.panelSettings.Size = new System.Drawing.Size(780, 33);
+            this.panelSettings.TabIndex = 9;
+            // 
+            // buttonSaveSettings
+            // 
+            this.buttonSaveSettings.Location = new System.Drawing.Point(206, 5);
+            this.buttonSaveSettings.Name = "buttonSaveSettings";
+            this.buttonSaveSettings.Size = new System.Drawing.Size(75, 25);
+            this.buttonSaveSettings.TabIndex = 10;
+            this.buttonSaveSettings.Text = "Save settings";
+            this.buttonSaveSettings.UseVisualStyleBackColor = true;
+            this.buttonSaveSettings.Click += new System.EventHandler(this.buttonSaveSettings_Click_1);
+            // 
+            // labelUrl
+            // 
+            this.labelUrl.AutoSize = true;
+            this.labelUrl.Location = new System.Drawing.Point(5, 9);
+            this.labelUrl.Name = "labelUrl";
+            this.labelUrl.Size = new System.Drawing.Size(78, 16);
+            this.labelUrl.TabIndex = 8;
+            this.labelUrl.Text = "Server URL";
+            // 
+            // buttonTestConnection
+            // 
+            this.buttonTestConnection.Location = new System.Drawing.Point(88, 5);
+            this.buttonTestConnection.Name = "buttonTestConnection";
+            this.buttonTestConnection.Size = new System.Drawing.Size(112, 25);
+            this.buttonTestConnection.TabIndex = 8;
+            this.buttonTestConnection.Text = "Test connection";
+            this.buttonTestConnection.UseVisualStyleBackColor = true;
+            this.buttonTestConnection.Click += new System.EventHandler(this.buttonTestConnection_Click_1);
             // 
             // tabPageDisks
             // 
@@ -109,7 +146,6 @@
             this.tabControlDisks.SelectedIndex = 0;
             this.tabControlDisks.Size = new System.Drawing.Size(794, 478);
             this.tabControlDisks.TabIndex = 4;
-            this.tabControlDisks.Click += new System.EventHandler(this.tabControlDisks_Click);
             // 
             // notifyIconDisks
             // 
@@ -131,7 +167,6 @@
             this.exitToolStripMenuItem});
             this.contextMenuStripDisks.Name = "contextMenuStrip1";
             this.contextMenuStripDisks.Size = new System.Drawing.Size(117, 92);
-            this.contextMenuStripDisks.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // showToolStripMenuItem
             // 
@@ -161,45 +196,6 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // panelSettings
-            // 
-            this.panelSettings.Controls.Add(this.buttonSaveSettings);
-            this.panelSettings.Controls.Add(this.labelUrl);
-            this.panelSettings.Controls.Add(this.buttonTestConnection);
-            this.panelSettings.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelSettings.Location = new System.Drawing.Point(3, 3);
-            this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Size = new System.Drawing.Size(780, 33);
-            this.panelSettings.TabIndex = 9;
-            // 
-            // textBoxServerUrl
-            // 
-            this.textBoxServerUrl.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBoxServerUrl.Location = new System.Drawing.Point(3, 36);
-            this.textBoxServerUrl.Name = "textBoxServerUrl";
-            this.textBoxServerUrl.Size = new System.Drawing.Size(780, 22);
-            this.textBoxServerUrl.TabIndex = 10;
-            // 
-            // labelUrl
-            // 
-            this.labelUrl.AutoSize = true;
-            this.labelUrl.Location = new System.Drawing.Point(5, 9);
-            this.labelUrl.Name = "labelUrl";
-            this.labelUrl.Size = new System.Drawing.Size(78, 16);
-            this.labelUrl.TabIndex = 8;
-            this.labelUrl.Text = "Server URL";
-            // 
-            // buttonSaveSettings
-            // 
-            this.buttonSaveSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSaveSettings.Location = new System.Drawing.Point(700, 5);
-            this.buttonSaveSettings.Name = "buttonSaveSettings";
-            this.buttonSaveSettings.Size = new System.Drawing.Size(75, 25);
-            this.buttonSaveSettings.TabIndex = 10;
-            this.buttonSaveSettings.Text = "Save settings";
-            this.buttonSaveSettings.UseVisualStyleBackColor = true;
-            this.buttonSaveSettings.Click += new System.EventHandler(this.buttonSaveSettings_Click_1);
-            // 
             // FormDisks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -213,10 +209,10 @@
             this.Text = "Disk Space Viewer";
             this.tabPageSettings.ResumeLayout(false);
             this.tabPageSettings.PerformLayout();
-            this.tabControlDisks.ResumeLayout(false);
-            this.contextMenuStripDisks.ResumeLayout(false);
             this.panelSettings.ResumeLayout(false);
             this.panelSettings.PerformLayout();
+            this.tabControlDisks.ResumeLayout(false);
+            this.contextMenuStripDisks.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

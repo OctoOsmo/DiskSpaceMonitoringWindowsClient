@@ -37,9 +37,9 @@ namespace DiskSpaceMonitoring.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringDictionary disks {
+        public global::System.Collections.Specialized.StringCollection disks {
             get {
-                return ((global::System.Collections.Specialized.StringDictionary)(this["disks"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["disks"]));
             }
             set {
                 this["disks"] = value;
