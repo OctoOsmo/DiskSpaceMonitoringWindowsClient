@@ -12,12 +12,12 @@ namespace DiskSpaceMonitoring
     {
         private Timer chartTimer;
         List<DiskChart> charts = new List<DiskChart>();
-        StringCollection checkedDisks;
         private static readonly int CHART_SIZE = 400;
         private static readonly Color BACKGRD_COLOR = Color.FromArgb(100, 240, 240, 240);
 
         public FormDisks()
         {
+            MaximizeBox = false;
             InitializeComponent();
             InitTimer();
             textBoxServerUrl.Text = Properties.Settings.Default.server_url;
@@ -29,13 +29,7 @@ namespace DiskSpaceMonitoring
                 disks = DisksRestClient.Instance
                     .setServerUrl(Properties.Settings.Default.server_url)
                     .getDiskList();
-                foreach (KeyValuePair<string, DiskInfo> diskEntry in disks)
-                {
-                    if (diskEntry.Key != "Cмонтировано" && diskEntry.Key != "Mounted")
-                    {
-                        checkedListBoxDisks.Items.Add(diskEntry.Key);
-                    }
-                }
+                fillDisksListBox(disks);
             }
             catch (Exception e)
             {
@@ -43,24 +37,41 @@ namespace DiskSpaceMonitoring
             }
             if (Properties.Settings.Default.disks != null && Properties.Settings.Default.disks.Count > 0)
             {
+                textBoxSetup.Visible = false;
                 foreach (String diskName in Properties.Settings.Default.disks)
                 {
-                    charts.Add(createChart(diskName));
+                    charts.Add(createChart(diskName.Replace("/","_")));
                 }
                 foreach (DiskChart diskChart in charts)
                 {
                     tabPageDisks.Controls.Add(diskChart.chart);
                 }
                 drawCharts();
-                foreach (String diskName in Properties.Settings.Default.disks) {
-                    checkedListBoxDisks.SetItemChecked(checkedListBoxDisks.Items.IndexOf(diskName), true);
+                foreach (String diskName in Properties.Settings.Default.disks)
+                {
+                    int diskNameIndex = checkedListBoxDisks.Items.IndexOf(diskName);
+                    if (diskNameIndex != -1)
+                        checkedListBoxDisks.SetItemChecked(diskNameIndex, true);
                 }
             }
             else
             {
+                textBoxSetup.Visible = true;
                 Properties.Settings.Default.disks = new StringCollection();
             }
             adjustFormSize();
+        }
+
+        private void fillDisksListBox(Dictionary<String, DiskInfo> disks)
+        {
+            checkedListBoxDisks.Items.Clear();
+            foreach (KeyValuePair<string, DiskInfo> diskEntry in disks)
+            {
+                if (diskEntry.Key != "Cмонтировано" && diskEntry.Key != "Mounted")
+                {
+                    checkedListBoxDisks.Items.Add(diskEntry.Key.Replace("_","/"));
+                }
+            }
         }
 
         public void adjustFormSize()
@@ -75,8 +86,6 @@ namespace DiskSpaceMonitoring
                 int h = charts.ElementAt(0).chart.Height;
                 this.Width = (w + (ml + mr)) * charts.Count + 30;
                 this.Height = 485;
-                //this.Height = h + (mt + mb) + 50;
-                //tabPageDisks.Width = this.Width;
             }
             else { tabPageDisks.Width = 300; }
         }
@@ -114,10 +123,10 @@ namespace DiskSpaceMonitoring
             c.Width = CHART_SIZE;
             c.Height = CHART_SIZE;
             Font f = new Font(FontFamily.GenericSansSerif, 12);
-            Title t = new Title("Title1");
+            Title t = new Title("Disk Title");
+            t.Name = "Disk Title";
             t.Font = f;
             t.Docking = Docking.Top;
-            //t.IsDockedInsideChartArea = false;
             t.DockingOffset = 42;
             t.DockedToChartArea = ca.Name;
             c.Titles.Add(t);
@@ -126,7 +135,6 @@ namespace DiskSpaceMonitoring
             c.Series["SeriesUsed"].Font = f;
             c.Dock = DockStyle.Left;
             DiskChart diskChart = new DiskChart(c, label, diskName);
-            //drawDiskChart(c, diskName, label);
             return diskChart;
         }
 
@@ -157,7 +165,7 @@ namespace DiskSpaceMonitoring
                     chart.Series["SeriesUsed"].Points.Clear();
                     chart.Series["SeriesUsed"].Points.AddXY(usedlabel, percentOfuse);
                     chart.Series["SeriesUsed"].Points.AddXY(freeLabel, 100 - percentOfuse);
-                    chart.Titles["Title1"].Text = label + " " + videoDisk.Size;
+                    chart.Titles["Disk Title"].Text = label + " " + videoDisk.Size;
                 }
             }
             catch (Exception e)
@@ -170,23 +178,27 @@ namespace DiskSpaceMonitoring
         {
             chartTimer.Stop();
             textBoxServerUrl.BackColor = Color.Yellow;
-            DisksRestClient.Instance.setServerUrl(textBoxServerUrl.Text).connect();
-            if (DisksRestClient.Instance.connected)
+            try
             {
+                DisksRestClient.Instance.setServerUrl(textBoxServerUrl.Text).connect();
                 textBoxServerUrl.BackColor = Color.Green;
                 chartTimer.Start();
                 notifyIconDisks.ShowBalloonTip(1000, "Info", "Test passed", ToolTipIcon.Info);
             }
-            else
+            catch (System.UriFormatException e)
             {
                 textBoxServerUrl.BackColor = Color.Red;
-                notifyIconDisks.ShowBalloonTip(1000, "Info", "Test failed", ToolTipIcon.Error);
+                notifyIconDisks.ShowBalloonTip(1000, "Error", "Connection failure", ToolTipIcon.Error);
             }
         }
 
         private void buttonTestConnection_Click_1(object sender, EventArgs e)
         {
             testConnection();
+            if (DisksRestClient.Instance.connected)
+            {
+                fillDisksListBox(DisksRestClient.Instance.setServerUrl(Properties.Settings.Default.server_url).getDiskList());
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -224,10 +236,10 @@ namespace DiskSpaceMonitoring
             if (charts != null)
                 charts.Clear();
             if (Properties.Settings.Default.disks != null)
-                Properties.Settings.Default.disks.Clear();            
+                Properties.Settings.Default.disks.Clear();
             foreach (String item in checkedListBoxDisks.CheckedItems)
-            {                
-                charts.Add(createChart(item));
+            {
+                charts.Add(createChart(item.Replace("/","_")));
                 Properties.Settings.Default.disks.Add(item);
             }
             tabPageDisks.Controls.Clear();

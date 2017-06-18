@@ -45,8 +45,10 @@
             this.hideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBoxSetup = new System.Windows.Forms.TextBox();
             this.tabPageSettings.SuspendLayout();
             this.panelSettings.SuspendLayout();
+            this.tabPageDisks.SuspendLayout();
             this.tabControlDisks.SuspendLayout();
             this.contextMenuStripDisks.SuspendLayout();
             this.SuspendLayout();
@@ -127,6 +129,7 @@
             // 
             this.tabPageDisks.AutoScroll = true;
             this.tabPageDisks.BackColor = System.Drawing.SystemColors.Menu;
+            this.tabPageDisks.Controls.Add(this.textBoxSetup);
             this.tabPageDisks.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabPageDisks.Location = new System.Drawing.Point(4, 25);
             this.tabPageDisks.Name = "tabPageDisks";
@@ -196,13 +199,32 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // textBoxSetup
+            // 
+            this.textBoxSetup.BackColor = System.Drawing.SystemColors.Menu;
+            this.textBoxSetup.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxSetup.Enabled = false;
+            this.textBoxSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxSetup.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.textBoxSetup.Location = new System.Drawing.Point(102, 186);
+            this.textBoxSetup.Multiline = true;
+            this.textBoxSetup.Name = "textBoxSetup";
+            this.textBoxSetup.ReadOnly = true;
+            this.textBoxSetup.Size = new System.Drawing.Size(581, 93);
+            this.textBoxSetup.TabIndex = 0;
+            this.textBoxSetup.TabStop = false;
+            this.textBoxSetup.Text = "You have setup connection on settings tab and choose some disks to view";
+            this.textBoxSetup.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // FormDisks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(794, 478);
             this.Controls.Add(this.tabControlDisks);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormDisks";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -211,6 +233,8 @@
             this.tabPageSettings.PerformLayout();
             this.panelSettings.ResumeLayout(false);
             this.panelSettings.PerformLayout();
+            this.tabPageDisks.ResumeLayout(false);
+            this.tabPageDisks.PerformLayout();
             this.tabControlDisks.ResumeLayout(false);
             this.contextMenuStripDisks.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -234,6 +258,7 @@
         private System.Windows.Forms.Panel panelSettings;
         private System.Windows.Forms.Label labelUrl;
         private System.Windows.Forms.Button buttonSaveSettings;
+        private System.Windows.Forms.TextBox textBoxSetup;
     }
 }
 
