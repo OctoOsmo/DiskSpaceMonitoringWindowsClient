@@ -21,6 +21,7 @@ namespace DiskSpaceMonitoring
             InitializeComponent();
             InitTimer();
             textBoxServerUrl.Text = Properties.Settings.Default.server_url;
+            textBoxRestEndpoint.Text = Properties.Settings.Default.AllDisksRestEndpoint;
 
             testConnection();
             Dictionary<String, DiskInfo> disks;
@@ -65,11 +66,14 @@ namespace DiskSpaceMonitoring
         private void fillDisksListBox(Dictionary<String, DiskInfo> disks)
         {
             checkedListBoxDisks.Items.Clear();
-            foreach (KeyValuePair<string, DiskInfo> diskEntry in disks)
+            if (disks != null)
             {
-                if (diskEntry.Key != "Cмонтировано" && diskEntry.Key != "Mounted")
+                foreach (KeyValuePair<string, DiskInfo> diskEntry in disks)
                 {
-                    checkedListBoxDisks.Items.Add(diskEntry.Key.Replace("_","/"));
+                    if (diskEntry.Key != "Cмонтировано" && diskEntry.Key != "Mounted")
+                    {
+                        checkedListBoxDisks.Items.Add(diskEntry.Key.Replace("_", "/"));
+                    }
                 }
             }
         }
@@ -180,10 +184,21 @@ namespace DiskSpaceMonitoring
             textBoxServerUrl.BackColor = Color.Yellow;
             try
             {
-                DisksRestClient.Instance.setServerUrl(textBoxServerUrl.Text).connect();
+                DisksRestClient.Instance
+                    .setServerUrl(textBoxServerUrl.Text)
+                    .setRestEndpoint(textBoxRestEndpoint.Text)
+                    .connect();                
                 textBoxServerUrl.BackColor = Color.Green;
                 chartTimer.Start();
                 notifyIconDisks.ShowBalloonTip(1000, "Info", "Test passed", ToolTipIcon.Info);
+                if(DisksRestClient.Instance.getDiskList() != null)
+                {
+                    textBoxRestEndpoint.BackColor = Color.Green;
+                }
+                else
+                {
+                    textBoxRestEndpoint.BackColor = Color.Red;
+                }
             }
             catch (System.UriFormatException e)
             {
@@ -197,7 +212,7 @@ namespace DiskSpaceMonitoring
             testConnection();
             if (DisksRestClient.Instance.connected)
             {
-                fillDisksListBox(DisksRestClient.Instance.setServerUrl(Properties.Settings.Default.server_url).getDiskList());
+                fillDisksListBox(DisksRestClient.Instance.setServerUrl(Properties.Settings.Default.server_url).getDiskList());                
             }
         }
 
@@ -233,6 +248,7 @@ namespace DiskSpaceMonitoring
         private void buttonSaveSettings_Click_1(object sender, EventArgs e)
         {
             Properties.Settings.Default.server_url = textBoxServerUrl.Text;
+            Properties.Settings.Default.AllDisksRestEndpoint = textBoxRestEndpoint.Text;
             if (charts != null)
                 charts.Clear();
             if (Properties.Settings.Default.disks != null)
@@ -251,7 +267,9 @@ namespace DiskSpaceMonitoring
             chartTimer.Stop();
             chartTimer.Start();
             textBoxServerUrl.BackColor = Color.White;
+            textBoxRestEndpoint.BackColor = Color.White;
             adjustFormSize();
         }
+
     }
 }

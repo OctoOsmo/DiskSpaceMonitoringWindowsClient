@@ -1,11 +1,6 @@
 ﻿using RestSharp;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiskSpaceMonitoring
 {
@@ -16,7 +11,14 @@ namespace DiskSpaceMonitoring
 
         public bool connected = false;
         private String serverUrl { get; set; } = "";
+        private String restEndpoint { get; set; } = Properties.Settings.Default.AllDisksRestEndpoint;
         private RestClient clientInstance;
+         
+        public DisksRestClient setRestEndpoint(String endpoint)
+        {
+            this.restEndpoint = endpoint;
+            return this;
+        }
 
         public DisksRestClient setServerUrl(String url)
         {
@@ -60,7 +62,7 @@ namespace DiskSpaceMonitoring
                     //StringDictionary dk = Properties.Settings.Default.disks;
                     //client.Timeout = 1000;            
                     var oneDiskRrequest = new RestRequest("/diskInfoRESTAPI/disk/_media_Video", Method.GET);
-                    var allDisksRequest = new RestRequest("/diskInfoRESTAPI/disk_list", Method.GET);
+                    var allDisksRequest = new RestRequest(restEndpoint, Method.GET);
                     // execute the request
                     IRestResponse response = clientInstance.Execute(oneDiskRrequest);
                     var content = response.Content; // raw content as string

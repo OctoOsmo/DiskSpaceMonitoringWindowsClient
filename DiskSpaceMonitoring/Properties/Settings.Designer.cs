@@ -45,5 +45,17 @@ namespace DiskSpaceMonitoring.Properties {
                 this["disks"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/diskInfoRESTAPI/disk_list")]
+        public string AllDisksRestEndpoint {
+            get {
+                return ((string)(this["AllDisksRestEndpoint"]));
+            }
+            set {
+                this["AllDisksRestEndpoint"] = value;
+            }
+        }
     }
 }

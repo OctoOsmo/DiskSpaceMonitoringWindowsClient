@@ -38,6 +38,7 @@
             this.labelUrl = new System.Windows.Forms.Label();
             this.buttonTestConnection = new System.Windows.Forms.Button();
             this.tabPageDisks = new System.Windows.Forms.TabPage();
+            this.textBoxSetup = new System.Windows.Forms.TextBox();
             this.tabControlDisks = new System.Windows.Forms.TabControl();
             this.notifyIconDisks = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStripDisks = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -45,7 +46,7 @@
             this.hideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBoxSetup = new System.Windows.Forms.TextBox();
+            this.textBoxRestEndpoint = new System.Windows.Forms.TextBox();
             this.tabPageSettings.SuspendLayout();
             this.panelSettings.SuspendLayout();
             this.tabPageDisks.SuspendLayout();
@@ -56,6 +57,7 @@
             // tabPageSettings
             // 
             this.tabPageSettings.Controls.Add(this.checkedListBoxDisks);
+            this.tabPageSettings.Controls.Add(this.textBoxRestEndpoint);
             this.tabPageSettings.Controls.Add(this.textBoxServerUrl);
             this.tabPageSettings.Controls.Add(this.panelSettings);
             this.tabPageSettings.Location = new System.Drawing.Point(4, 25);
@@ -71,9 +73,10 @@
             this.checkedListBoxDisks.CheckOnClick = true;
             this.checkedListBoxDisks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkedListBoxDisks.FormattingEnabled = true;
-            this.checkedListBoxDisks.Location = new System.Drawing.Point(3, 58);
+            this.checkedListBoxDisks.IntegralHeight = false;
+            this.checkedListBoxDisks.Location = new System.Drawing.Point(3, 80);
             this.checkedListBoxDisks.Name = "checkedListBoxDisks";
-            this.checkedListBoxDisks.Size = new System.Drawing.Size(780, 388);
+            this.checkedListBoxDisks.Size = new System.Drawing.Size(780, 366);
             this.checkedListBoxDisks.TabIndex = 0;
             this.checkedListBoxDisks.ThreeDCheckBoxes = true;
             // 
@@ -138,6 +141,23 @@
             this.tabPageDisks.TabIndex = 0;
             this.tabPageDisks.Text = "Disks";
             // 
+            // textBoxSetup
+            // 
+            this.textBoxSetup.BackColor = System.Drawing.SystemColors.Menu;
+            this.textBoxSetup.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxSetup.Enabled = false;
+            this.textBoxSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxSetup.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.textBoxSetup.Location = new System.Drawing.Point(102, 186);
+            this.textBoxSetup.Multiline = true;
+            this.textBoxSetup.Name = "textBoxSetup";
+            this.textBoxSetup.ReadOnly = true;
+            this.textBoxSetup.Size = new System.Drawing.Size(581, 93);
+            this.textBoxSetup.TabIndex = 0;
+            this.textBoxSetup.TabStop = false;
+            this.textBoxSetup.Text = "You have setup connection on settings tab and choose some disks to view";
+            this.textBoxSetup.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // tabControlDisks
             // 
             this.tabControlDisks.Controls.Add(this.tabPageDisks);
@@ -199,22 +219,13 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // textBoxSetup
+            // textBoxRestEndpoint
             // 
-            this.textBoxSetup.BackColor = System.Drawing.SystemColors.Menu;
-            this.textBoxSetup.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxSetup.Enabled = false;
-            this.textBoxSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxSetup.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.textBoxSetup.Location = new System.Drawing.Point(102, 186);
-            this.textBoxSetup.Multiline = true;
-            this.textBoxSetup.Name = "textBoxSetup";
-            this.textBoxSetup.ReadOnly = true;
-            this.textBoxSetup.Size = new System.Drawing.Size(581, 93);
-            this.textBoxSetup.TabIndex = 0;
-            this.textBoxSetup.TabStop = false;
-            this.textBoxSetup.Text = "You have setup connection on settings tab and choose some disks to view";
-            this.textBoxSetup.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxRestEndpoint.Dock = System.Windows.Forms.DockStyle.Top;
+            this.textBoxRestEndpoint.Location = new System.Drawing.Point(3, 58);
+            this.textBoxRestEndpoint.Name = "textBoxRestEndpoint";
+            this.textBoxRestEndpoint.Size = new System.Drawing.Size(780, 22);
+            this.textBoxRestEndpoint.TabIndex = 11;
             // 
             // FormDisks
             // 
@@ -259,6 +270,7 @@
         private System.Windows.Forms.Label labelUrl;
         private System.Windows.Forms.Button buttonSaveSettings;
         private System.Windows.Forms.TextBox textBoxSetup;
+        private System.Windows.Forms.TextBox textBoxRestEndpoint;
     }
 }
 

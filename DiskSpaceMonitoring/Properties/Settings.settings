@@ -8,5 +8,8 @@
     <Setting Name="disks" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="AllDisksRestEndpoint" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/diskInfoRESTAPI/disk_list</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
